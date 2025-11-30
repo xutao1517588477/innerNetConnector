@@ -16,6 +16,15 @@ module.exports = {
       platforms: ['darwin'],
     },
     {
+      name: '@electron-forge/maker-wix',
+      config: {
+        language: 1033,
+        manufacturer: 'innerNetConnector',
+        platforms: ['win32'],
+        icon: 'assets/favicon.ico',
+      },
+    },
+    {
       name: '@electron-forge/maker-deb',
       config: {},
     },
