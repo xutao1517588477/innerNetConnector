@@ -5,5 +5,10 @@ contextBridge.exposeInMainWorld('versions', {
   chrome: () => process.versions.chrome,
   electron: () => process.versions.electron,
   ping: () => ipcRenderer.invoke('ping'),
+  receivedPing: (callback) => {
+    ipcRenderer.on('reply-ping', (event, args) => {
+      callback(args)
+    })
+  }
   // 除函数之外，我们也可以暴露变量
 })

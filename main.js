@@ -10,12 +10,22 @@ const createWindow = () => {
     }
   })
 
+  // win.webContents.openDevTools()
+
   win.loadFile('index.html')
 }
 
 app.whenReady().then(() => {
   ipcMain.handle('ping', () => {
-    console.log('ping received')
+    console.log(`ping received at ${new Date().toLocaleTimeString()}`)
+
+    // 向渲染进程发送异步消息
+    setTimeout(() => {
+      BrowserWindow.getAllWindows()[0].webContents.send('reply-ping', `${new Date().toLocaleTimeString()}: 5s前收到过一次ping`)
+    }, 5000);
+
+    // 返回响应给渲染进程
+    return `received ping at ${new Date().toLocaleTimeString()}`
   })
 
   createWindow()
